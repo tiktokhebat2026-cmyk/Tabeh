@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saoeng Kito | Akun</title>
+    <link rel="stylesheet" href="P.css">
+    <link rel="stylesheet" href="menu restoran.html">
+</head>
+<body>
+
+    <main class="auth-card" id="authCard">
+
+        <section class="welcome-panel">
+            <div class="welcome-content" id="welcomeContent">
+                <div class="brand-mark">S</div>
+                <p class="eyebrow">RASA NUSANTARA</p>
+                <h1>Selamat<br>Datang Kembali!</h1>
+                <p>Nikmati kemudahan memesan hidangan favorit Anda bersama Saoeng Kito.</p>
+                <button type="button" class="outline-btn" id="switchBtn">
+                    BUAT AKUN
+                </button>
+            </div>
+        </section>
+
+        <section class="form-panel">
+
+            <a href="#" class="brand">
+                <span class="brand-icon">S</span>
+                <span>
+                    <strong>Saoeng Kito</strong>
+                    <small>RASA NUSANTARA</small>
+                </span>
+            </a>
+
+            <form id="loginForm" class="auth-form">
+                <p class="eyebrow">AKSES PELANGGAN</p>
+                <h2>Masuk ke Akun</h2>
+                <p class="subtitle">Masuk untuk menikmati layanan kami.</p>
+
+                <label for="loginEmail">Alamat Email</label>
+                <input id="loginEmail" type="email"
+                    placeholder="nama@email.com" required>
+
+                <label for="loginPassword">Kata Sandi</label>
+                <input id="loginPassword" type="password"
+                    placeholder="Masukkan kata sandi" required>
+
+                <a href="#" class="forgot" id="forgotLink">
+                    Lupa kata sandi?
+                </a>
+
+                <button type="submit" class="primary-btn">
+                    MASUK <span>→</span>
+                </button>
+
+                <p class="notice" id="loginNotice" aria-live="polite"></p>
+
+                <p class="form-footer">
+                    Belum punya akun?
+                    <a href="#" class="switch-link" data-mode="register">
+                        Daftar
+                    </a>
+                </p>
+            </form>
+
+            <form id="registerForm" class="auth-form hidden">
+                <p class="eyebrow">BERGABUNG BERSAMA KAMI</p>
+                <h2>Buat Akun</h2>
+                <p class="subtitle">Daftar untuk pengalaman bersantap yang lebih mudah.</p>
+
+                <label for="fullName">Nama Lengkap</label>
+                <input id="fullName" type="text"
+                    placeholder="Nama lengkap Anda" required>
+
+                <label for="registerEmail">Alamat Email</label>
+                <input id="registerEmail" type="email"
+                    placeholder="nama@email.com" required>
+
+                <label for="whatsapp">Nomor WhatsApp</label>
+                <input id="whatsapp" type="tel"
+                    placeholder="08xxxxxxxxxx" required>
+
+                <label for="registerPassword">Buat Kata Sandi</label>
+                <input id="registerPassword" type="password"
+                    placeholder="Minimal 6 karakter"
+                    minlength="6" required>
+
+                <button type="submit" class="primary-btn">
+                    DAFTAR SEKARANG <span>→</span>
+                </button>
+
+                <p class="notice" id="registerNotice" aria-live="polite"></p>
+
+                <p class="form-footer">
+                    Sudah punya akun?
+                    <a href="#" class="switch-link" data-mode="login">
+                        Masuk
+                    </a>
+                </p>
+            </form>
+
+        </section>
+    </main>
+
+    <script>
+        const card = document.getElementById("authCard");
+        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
+        const welcomeContent = document.getElementById("welcomeContent");
+        const switchBtn = document.getElementById("switchBtn");
+
+        function setMode(mode) {
+            const isRegister = mode === "register";
+
+            card.classList.toggle("register-mode", isRegister);
+            loginForm.classList.toggle("hidden", isRegister);
+            registerForm.classList.toggle("hidden", !isRegister);
+
+            welcomeContent.innerHTML = isRegister
+                ? `<div class="brand-mark">S</div>
+                   <p class="eyebrow">SAOENG KITO</p>
+                   <h1>Selamat<br>Bergabung!</h1>
+                   <p>Bersiaplah menikmati kelezatan hidangan Nusantara.</p>
+                   <button type="button" class="outline-btn"
+                   id="switchBtn">MASUK</button>`
+                : `<div class="brand-mark">S</div>
+                   <p class="eyebrow">RASA NUSANTARA</p>
+                   <h1>Selamat<br>Datang Kembali!</h1>
+                   <p>Nikmati kemudahan memesan hidangan favorit Anda bersama Saoeng Kito.</p>
+                   <button type="button" class="outline-btn"
+                   id="switchBtn">BUAT AKUN</button>`;
+
+            document.getElementById("switchBtn").onclick = () =>
+                setMode(isRegister ? "login" : "register");
+        }
+
+        switchBtn.onclick = () => setMode("register");
+
+        document.querySelectorAll(".switch-link").forEach(link => {
+            link.addEventListener("click", event => {
+                event.preventDefault();
+                setMode(link.dataset.mode);
+            });
+        });
+
+        document.getElementById("forgotLink").onclick = event => {
+            event.preventDefault();
+            document.getElementById("loginNotice").textContent =
+                "Pemulihan kata sandi perlu dihubungkan ke sistem akun.";
+        };
+
+        loginForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    window.location.href = "menu restoran.html";
+});
+
+        registerForm.addEventListener("submit", event => {
+            event.preventDefault();
+            document.getElementById("registerNotice").textContent =
+                "Hubungkan formulir ke backend untuk membuat akun.";
+        });
+    </script>
+
+</body>
+</html>
